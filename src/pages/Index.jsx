@@ -1,7 +1,16 @@
 import { Container, VStack, Heading, Text, Button, Box, Flex, Spacer } from "@chakra-ui/react";
 import { FaRunning, FaDumbbell, FaBiking } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const Index = () => {
+  const [workouts, setWorkouts] = useState([]);
+
+  useEffect(() => {
+    const storedWorkouts = JSON.parse(localStorage.getItem("workouts")) || [];
+    setWorkouts(storedWorkouts);
+  }, []);
+
   return (
     <Container centerContent maxW="container.md" height="100vh" display="flex" flexDirection="column" justifyContent="center" alignItems="center">
       <VStack spacing={8}>
@@ -26,9 +35,19 @@ const Index = () => {
           </Box>
         </Flex>
         <Spacer />
-        <Button colorScheme="teal" size="lg">
-          Get Started
+        <Button as={Link} to="/log-workout" colorScheme="teal" size="lg">
+          Log Workout
         </Button>
+        <VStack spacing={4} width="100%">
+          {workouts.map((workout, index) => (
+            <Box key={index} p={4} borderWidth="1px" borderRadius="lg" width="100%">
+              <Text><strong>Type:</strong> {workout.type}</Text>
+              <Text><strong>Duration:</strong> {workout.duration} minutes</Text>
+              <Text><strong>Date:</strong> {workout.date}</Text>
+              <Text><strong>Notes:</strong> {workout.notes}</Text>
+            </Box>
+          ))}
+        </VStack>
       </VStack>
     </Container>
   );
