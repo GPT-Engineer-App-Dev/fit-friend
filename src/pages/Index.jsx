@@ -38,6 +38,9 @@ const Index = () => {
         <Button as={Link} to="/log-workout" colorScheme="teal" size="lg">
           Log Workout
         </Button>
+        <Button as={Link} to="/progress" colorScheme="blue" size="lg">
+          View Progress
+        </Button>
         <VStack spacing={4} width="100%">
           {workouts.map((workout, index) => (
             <Box key={index} p={4} borderWidth="1px" borderRadius="lg" width="100%">
